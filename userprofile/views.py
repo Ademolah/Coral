@@ -10,10 +10,12 @@ def signup(request):
 
         if form.is_valid():
             user = form.save()
-            userprofile = UserProfile.objects.create(user=user)
+            UserProfile.objects.create(user=user)
 
-            return redirect('/login/')
-    form = UserCreationForm()
+            return redirect('login/')
+        
+    else:
+        form = UserCreationForm()
 
     return render(request, 'userprofile/signup.html', {
         'form': form
