@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .forms import AddLeadForm
 from .models import Lead
@@ -14,6 +15,7 @@ def leads_list(request):
     })
 
 
+
 @login_required
 def leads_details(request, pk):
     lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
@@ -22,6 +24,38 @@ def leads_details(request, pk):
     return render(request, 'leads/leads_details.html', {
         'lead': lead
     })
+
+@login_required
+def delete_leads(request, pk):
+    lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+    lead.delete()
+
+    messages.success(request, "Leads deleted succesfully")
+
+    return redirect('/leads_list/')
+
+@login_required
+def edit_leads(request, pk):
+    lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+
+    if request.method == 'POST':
+        form = AddLeadForm(request.POST, instance=lead)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, "Leads Edited succesfully!")
+
+            return redirect('/leads_list/')
+        
+    else:
+
+        form = AddLeadForm(instance=lead)
+
+    return render(request, 'leads/edit_leads.html', {
+        'form': form
+    })
+
 
 
 @login_required
@@ -34,7 +68,9 @@ def add_lead(request):
             lead.created_by = request.user
             lead.save()
 
-            return redirect('/dashboard/')
+            messages.success(request, "Leads created succesfully")
+
+            return redirect('/leads_list/')
         
     else:
 

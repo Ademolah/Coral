@@ -7,4 +7,6 @@ urlpatterns = [
     path('add_lead/', views.add_lead, name='add_lead'),
     path('leads_list/', views.leads_list, name='leads_list'),
     path('<int:pk>/', views.leads_details, name='leads_details'),
+    path('<int:pk>/delete/', views.delete_leads, name='delete_leads'),
+    path('<int:pk>/edit/', views.edit_leads, name='edit_leads'),
 ]

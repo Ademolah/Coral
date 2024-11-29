@@ -20,7 +20,15 @@
         <p class="font-semibold">Created</p>
         <p class="mb-4">{{ lead.created_at }}</p>
 
+        <hr class="my-4">
 
-        <a href="{% url 'leads:leads_list' %}">Back to leads</a>
+        <a href="{% url 'leads:delete_leads' lead.id %}" class="py-3 px-6 bg-red-800 rounded-xl text-white font-bold">Delete</a>
+
+        <a href="{% url 'leads:edit_leads' lead.id %}" class="py-3 px-6 bg-green-400 rounded-xl text-white font-bold">Edit</a>
+
+        <hr class="my-4">
+
+
+        <a href="{% url 'leads:leads_list' %}">⬅️Back to leads</a>
     </div>
 {% endblock%}

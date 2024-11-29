@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico/icon.png' %}"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %} | Coral {% endblock %}</title>
 </head>
@@ -22,6 +24,16 @@
             {% endif %}
         </div>
     </nav>
+
+            {% if messages %}
+                <div class="py-6 px-6">
+                    {% for message in messages %}
+                        <div class="py-4 px-4 bg-teal-300 rounded-xl">
+                            {{ message}}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
         {% block content%}
         {% endblock %}
