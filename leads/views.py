@@ -2,8 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from .forms import AddLeadForm
+from .models import Lead
 
 # Create your views here.
+@login_required
+def leads_list(request):
+    leads = Lead.objects.filter(created_by = request.user) 
+
+    return render(request, 'leads/leads_list.html', {
+        'leads': leads
+    })
+
+
 @login_required
 def add_lead(request):
     if request.method == 'POST':

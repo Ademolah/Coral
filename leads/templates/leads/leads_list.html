@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Leads{% endblock %}
+
+
+{% block content %}
+    <div class="py-6 px-6">
+        <h1>Leads</h1>
+        <a href="{% url 'leads:add_lead' %}" class="inline-block mb-2 mt-4 py-3 px-6 bg-teal-600 rounded-xl text-white font-bold">Add Lead</a>
+
+        <div class="flex justify-between">
+            <p class="py-4 px-2 bg-gray-200 w-full font-semibold">Name</p>
+            <p class="py-4 px-2 bg-gray-200 w-full font-semibold">Priority</p>
+            <p class="py-4 px-2 bg-gray-200 w-full font-semibold">Status</p>
+        </div>
+
+        {% for lead in leads %}
+            <div class="flex justify-between">
+                <p class="py-2 px-2 w-full">{{ lead.name }}</p>
+                <p class="py-2 px-2 w-full">{{ lead.priority }}</p>
+                <p class="py-2 px-2 w-full">{{ lead.status }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
