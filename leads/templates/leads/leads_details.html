@@ -23,8 +23,10 @@
         <hr class="my-4">
 
         <a href="{% url 'leads:delete_leads' lead.id %}" class="py-3 px-6 bg-red-800 rounded-xl text-white font-bold">Delete</a>
-
         <a href="{% url 'leads:edit_leads' lead.id %}" class="py-3 px-6 bg-green-400 rounded-xl text-white font-bold">Edit</a>
+
+        <hr class="my-4 mb-4">
+        <a href="{% url 'leads:leads_convert' lead.id %}" class="py-3 px-6 bg-blue-500 rounded-xl text-white font-bold">Convert to client</a>
 
         <hr class="my-4">
 

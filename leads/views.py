@@ -5,10 +5,11 @@ from django.contrib import messages
 from .forms import AddLeadForm
 from .models import Lead
 
+from client.models import Client
 # Create your views here.
 @login_required
 def leads_list(request):
-    leads = Lead.objects.filter(created_by = request.user) 
+    leads = Lead.objects.filter(created_by = request.user, converted=False) 
 
     return render(request, 'leads/leads_list.html', {
         'leads': leads
@@ -79,3 +80,24 @@ def add_lead(request):
     return render(request, 'leads/add_lead.html', {
         'form': form
     })
+
+@login_required
+def converted_to_client(request, pk):
+    lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+
+    client = Client.objects.create(
+        name = lead.name,
+        email = lead.email,
+        description = lead.description,
+        created_by = request.user
+    )
+
+    lead.converted = True
+    lead.save()
+
+    messages.success(request, "Leads converted to client succesfully")
+
+    return redirect('/leads_list/')
+
+
+
